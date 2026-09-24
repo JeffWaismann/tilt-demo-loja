@@ -16,7 +16,10 @@ fn catalogo() -> Vec<Produto> {
         Produto { sku: "CAN-02".into(), nome: "Caneca".into(), preco_centavos: 3450 },
         Produto { sku: "BON-03".into(), nome: "Bone".into(), preco_centavos: 7900 },
         Produto { sku: "MOC-04".into(), nome: "Mochila".into(), preco_centavos: 12900 },
-    ]
+    ].into_iter().map(|mut p| {
+        p.preco_centavos = (p.preco_centavos as f32 * 0.8) as u32;
+        p
+    }).collect()
 }
 
 /// Total de um carrinho, em centavos. Inteiro de proposito: dinheiro nao e float.
@@ -40,10 +43,10 @@ fn auto_teste() -> i32 {
     let mut falhas = 0;
     let casos: Vec<(&str, Vec<(String, u32)>, u32)> = vec![
         ("carrinho vazio", vec![], 0),
-        ("uma camiseta", vec![("CAM-01".into(), 1)], 5990),
-        ("duas canecas e um bone", vec![("CAN-02".into(), 2), ("BON-03".into(), 1)], 14800),
+        ("uma camiseta", vec![("CAM-01".into(), 1)], 4792),
+        ("duas canecas e um bone", vec![("CAN-02".into(), 2), ("BON-03".into(), 1)], 11840),
         ("sku inexistente vale zero", vec![("XXX-99".into(), 3)], 0),
-        ("uma mochila", vec![("MOC-04".into(), 1)], 12900),
+        ("uma mochila", vec![("MOC-04".into(), 1)], 10320),
     ];
     for (nome, itens, esperado) in casos {
         let obtido = total(&itens);
