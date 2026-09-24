@@ -97,14 +97,23 @@ export function paginaProdutos(produtos) {
   <header>
     <div class="header-content">
       <div class="logo"><img src="assets/logo_boutique.jpg" alt="Logo"> Boutique Elegance</div>
-      <nav>
-        <ul>
-          <li><a href="#">Início</a></li>
-          <li><a href="#">Novidades</a></li>
-          <li><a href="#">Roupas</a></li>
-          <li><a href="#">Contato</a></li>
-        </ul>
-      </nav>
+      <div class="header-right" style="display: flex; align-items: center; gap: 2rem;">
+        <nav>
+          <ul>
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Novidades</a></li>
+            <li><a href="#">Roupas</a></li>
+            <li><a href="#">Contato</a></li>
+          </ul>
+        </nav>
+        <div class="cart-icon" style="position: relative; cursor: pointer; color: var(--text);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span class="cart-count" style="position: absolute; top: -6px; right: -8px; background: var(--primary); color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">0</span>
+        </div>
+      </div>
     </div>
   </header>
   
