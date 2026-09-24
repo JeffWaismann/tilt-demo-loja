@@ -53,14 +53,15 @@ export function paginaProdutos(produtos) {
     
     /* Header */
     header { background-color: var(--card-bg); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
-    .header-content { max-width: 1200px; margin: 0 auto; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 1.5rem; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; }
+    .header-content { max-width: 1200px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.5rem; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; }
+    .logo img { height: 40px; margin-right: 12px; border-radius: 50%; object-fit: cover; }
     nav ul { list-style: none; display: flex; gap: 2rem; }
     nav a { text-decoration: none; color: var(--text); font-weight: 400; transition: color 0.3s; }
     nav a:hover { color: var(--primary); }
     
     /* Hero */
-    .hero { background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('assets/hero_banner.jpg') center/cover no-repeat; text-align: center; padding: 8rem 2rem; }
+    .hero { background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('assets/hero_banner_notext.jpg') center/cover no-repeat; text-align: center; padding: 8rem 2rem; }
     .hero h1 { font-size: 3.5rem; font-weight: 400; margin-bottom: 1rem; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
     .hero p { font-size: 1.2rem; color: #eee; max-width: 600px; margin: 0 auto 2rem auto; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
     
@@ -89,7 +90,7 @@ export function paginaProdutos(produtos) {
 <body>
   <header>
     <div class="header-content">
-      <div class="logo">Boutique Elegance</div>
+      <div class="logo"><img src="assets/logo_boutique.jpg" alt="Logo"> Boutique Elegance</div>
       <nav>
         <ul>
           <li><a href="#">Início</a></li>
