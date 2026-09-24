@@ -11,8 +11,107 @@ export function somaCarrinho(itens) {
 }
 
 export function paginaProdutos(produtos) {
-  const linhas = produtos
-    .map((p) => `<li data-sku="${p.sku}">${p.nome} — ${formataCentavos(p.preco_centavos)}</li>`)
+  const cards = produtos
+    .map((p) => `
+      <article class="product-card" data-sku="${p.sku}">
+        <div class="product-image">
+          ${p.imagem ? 
+            `<img src="${p.imagem}" alt="${p.nome}" style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3/4;" />` : 
+            `<svg viewBox="0 0 200 266" xmlns="http://www.w3.org/2000/svg">
+              <rect width="200" height="266" fill="#f3f4f6"/>
+              <text x="100" y="133" font-family="sans-serif" font-size="20" fill="#9ca3af" text-anchor="middle" alignment-baseline="middle">Sem Foto</text>
+            </svg>`
+          }
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">${p.nome}</h3>
+          <p class="product-price">${formataCentavos(p.preco_centavos)}</p>
+          <button class="buy-button">Comprar</button>
+        </div>
+      </article>
+    `)
     .join("\n");
-  return `<!doctype html><html lang="pt-BR"><body><h1>Loja</h1><ul>\n${linhas}\n</ul></body></html>`;
+
+  return `<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boutique Elegance | Moda Feminina</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #d6336c;
+      --primary-hover: #a61e4d;
+      --bg: #f8f9fa;
+      --text: #212529;
+      --text-muted: #6c757d;
+      --card-bg: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Montserrat', sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; }
+    
+    /* Header */
+    header { background-color: var(--card-bg); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+    .header-content { max-width: 1200px; margin: 0 auto; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.5rem; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav a { text-decoration: none; color: var(--text); font-weight: 400; transition: color 0.3s; }
+    nav a:hover { color: var(--primary); }
+    
+    /* Hero */
+    .hero { background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('assets/hero_banner.jpg') center/cover no-repeat; text-align: center; padding: 8rem 2rem; }
+    .hero h1 { font-size: 3.5rem; font-weight: 400; margin-bottom: 1rem; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+    .hero p { font-size: 1.2rem; color: #eee; max-width: 600px; margin: 0 auto 2rem auto; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+    
+    /* Grid de Produtos */
+    .store-section { max-width: 1200px; margin: 4rem auto; padding: 0 1rem; }
+    .section-title { text-align: center; font-size: 2rem; margin-bottom: 3rem; font-weight: 400; }
+    .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    
+    /* Produto Card */
+    .product-card { background: var(--card-bg); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    .product-image { width: 100%; display: block; }
+    .product-image svg { width: 100%; height: auto; display: block; }
+    .product-info { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+    .product-name { font-size: 1rem; font-weight: 400; margin-bottom: 0.5rem; color: #444; }
+    .product-price { font-size: 1.25rem; font-weight: 600; color: var(--primary); margin-bottom: 1.5rem; }
+    .buy-button { background-color: var(--primary); color: white; border: none; padding: 0.75rem; border-radius: 4px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background-color 0.3s; width: 100%; text-transform: uppercase; letter-spacing: 1px; }
+    .buy-button:hover { background-color: var(--primary-hover); }
+
+    /* Responsividade */
+    @media (max-width: 992px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 768px) { .product-grid { grid-template-columns: repeat(2, 1fr); } .hero h1 { font-size: 2.2rem; } }
+    @media (max-width: 480px) { .product-grid { grid-template-columns: 1fr; } .header-content { flex-direction: column; gap: 1rem; } nav ul { flex-wrap: wrap; justify-content: center; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">Boutique Elegance</div>
+      <nav>
+        <ul>
+          <li><a href="#">Início</a></li>
+          <li><a href="#">Novidades</a></li>
+          <li><a href="#">Roupas</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <section class="hero">
+    <h1>Coleção Outono/Inverno</h1>
+    <p>Descubra as últimas tendências em moda feminina. Peças exclusivas com conforto e elegância para o seu dia a dia.</p>
+  </section>
+
+  <main class="store-section">
+    <h2 class="section-title">Destaques da Temporada</h2>
+    <div class="product-grid">
+${cards}
+    </div>
+  </main>
+</body>
+</html>`;
 }
