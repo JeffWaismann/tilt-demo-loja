@@ -1,7 +1,7 @@
 # Duas fases: compila com a toolchain inteira, roda numa imagem minima.
 FROM docker.io/library/rust:1.82-slim AS builder
 WORKDIR /src
-COPY Cargo.toml ./
+COPY Cargo.toml Cargo.lock ./
 COPY src ./src
 RUN cargo build --release
 
