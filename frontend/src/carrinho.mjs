@@ -15,7 +15,6 @@ export function paginaProdutos(produtos) {
     .map((p) => `
       <article class="product-card" data-sku="${p.sku}">
         <div class="product-image">
-          <div class="discount-badge">20% OFF</div>
           ${p.imagem ? 
             `<img src="${p.imagem}" alt="${p.nome}" style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3/4;" />` : 
             `<svg viewBox="0 0 200 266" xmlns="http://www.w3.org/2000/svg">
@@ -27,7 +26,6 @@ export function paginaProdutos(produtos) {
         <div class="product-info">
           <h3 class="product-name">${p.nome}</h3>
           <p class="product-price">
-            <span class="old-price">${formataCentavos(Math.round(p.preco_centavos / 0.8))}</span>
             ${formataCentavos(p.preco_centavos)}
           </p>
           <button class="buy-button">Comprar</button>
@@ -78,12 +76,10 @@ export function paginaProdutos(produtos) {
     .product-card { background: var(--card-bg); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
     .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
     .product-image { width: 100%; display: block; position: relative; }
-    .discount-badge { position: absolute; top: 12px; right: 12px; background-color: var(--primary); color: white; padding: 4px 8px; border-radius: 4px; font-weight: 600; font-size: 0.8rem; z-index: 10; letter-spacing: 0.5px; }
     .product-image svg { width: 100%; height: auto; display: block; }
     .product-info { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
     .product-name { font-size: 1rem; font-weight: 400; margin-bottom: 0.5rem; color: #444; }
     .product-price { font-size: 1.25rem; font-weight: 600; color: var(--primary); margin-bottom: 1.5rem; display: flex; align-items: baseline; gap: 8px; }
-    .old-price { text-decoration: line-through; color: var(--text-muted); font-size: 0.9rem; font-weight: 400; }
     .buy-button { background-color: var(--primary); color: white; border: none; padding: 0.75rem; border-radius: 4px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background-color 0.3s; width: 100%; text-transform: uppercase; letter-spacing: 1px; }
     .buy-button:hover { background-color: var(--primary-hover); }
 
