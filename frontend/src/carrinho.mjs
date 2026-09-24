@@ -15,6 +15,7 @@ export function paginaProdutos(produtos) {
     .map((p) => `
       <article class="product-card" data-sku="${p.sku}">
         <div class="product-image">
+          ${p.desconto_percentual ? `<div class="discount-tag">${p.desconto_percentual}% OFF</div>` : ""}
           ${p.imagem ? 
             `<img src="${p.imagem}" alt="${p.nome}" style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3/4;" />` : 
             `<svg viewBox="0 0 200 266" xmlns="http://www.w3.org/2000/svg">
@@ -25,9 +26,11 @@ export function paginaProdutos(produtos) {
         </div>
         <div class="product-info">
           <h3 class="product-name">${p.nome}</h3>
-          <p class="product-price">
-            ${formataCentavos(p.preco_centavos)}
-          </p>
+          ${p.preco_original ? 
+            `<p class="product-price" style="margin-bottom: 0.2rem; text-decoration: line-through; color: var(--text-muted); font-size: 0.9rem;">${formataCentavos(p.preco_original)}</p>
+             <p class="product-price">${formataCentavos(p.preco_centavos)}</p>` :
+            `<p class="product-price">${formataCentavos(p.preco_centavos)}</p>`
+          }
           <button class="buy-button">Comprar</button>
         </div>
       </article>
@@ -76,6 +79,7 @@ export function paginaProdutos(produtos) {
     .product-card { background: var(--card-bg); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
     .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
     .product-image { width: 100%; display: block; position: relative; }
+    .discount-tag { position: absolute; top: 10px; right: 10px; background-color: var(--primary); color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; z-index: 10; }
     .product-image svg { width: 100%; height: auto; display: block; }
     .product-info { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
     .product-name { font-size: 1rem; font-weight: 400; margin-bottom: 0.5rem; color: #444; }
