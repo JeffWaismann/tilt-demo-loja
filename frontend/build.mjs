@@ -17,7 +17,12 @@ const produtos = [
   { sku: "BLU-10", nome: "Blusa Tricot Inverno", preco_centavos: 11990, imagem: "assets/blusa_tricot.jpg" },
   { sku: "CON-11", nome: "Conjunto Moletom", preco_centavos: 17990, imagem: "assets/conjunto_moletom.jpg" },
   { sku: "TOP-12", nome: "Top Cropped Renda", preco_centavos: 4990, imagem: "assets/blusa_seda.jpg" },
-];
+].map(p => ({
+  ...p,
+  preco_original: p.preco_centavos,
+  preco_centavos: Math.round(p.preco_centavos * 0.8),
+  desconto_percentual: 20
+}));
 writeFileSync("dist/index.html", paginaProdutos(produtos));
 console.log("dist/index.html gerado");
 

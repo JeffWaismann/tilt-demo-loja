@@ -8,15 +8,21 @@ struct Produto {
     sku: String,
     nome: String,
     preco_centavos: u32,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    preco_original: Option<u32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    desconto_percentual: Option<u32>,
 }
 
 fn catalogo() -> Vec<Produto> {
     vec![
-        Produto { sku: "CAM-01".into(), nome: "Camiseta".into(), preco_centavos: 5990 },
-        Produto { sku: "CAN-02".into(), nome: "Caneca".into(), preco_centavos: 3450 },
-        Produto { sku: "BON-03".into(), nome: "Bone".into(), preco_centavos: 7900 },
-        Produto { sku: "MOC-04".into(), nome: "Mochila".into(), preco_centavos: 12900 },
+        Produto { sku: "CAM-01".into(), nome: "Camiseta".into(), preco_centavos: 5990, preco_original: None, desconto_percentual: None },
+        Produto { sku: "CAN-02".into(), nome: "Caneca".into(), preco_centavos: 3450, preco_original: None, desconto_percentual: None },
+        Produto { sku: "BON-03".into(), nome: "Bone".into(), preco_centavos: 7900, preco_original: None, desconto_percentual: None },
+        Produto { sku: "MOC-04".into(), nome: "Mochila".into(), preco_centavos: 12900, preco_original: None, desconto_percentual: None },
     ].into_iter().map(|mut p| {
+        p.preco_original = Some(p.preco_centavos);
+        p.desconto_percentual = Some(20);
         p.preco_centavos = (p.preco_centavos as f32 * 0.8) as u32;
         p
     }).collect()
