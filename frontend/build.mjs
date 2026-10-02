@@ -4,6 +4,8 @@ import { paginaProdutos } from "./src/carrinho.mjs";
 mkdirSync("dist", { recursive: true });
 cpSync("src/assets", "dist/assets", { recursive: true });
 
+const descontoEnv = process.env.LOJA_DESCONTO ? parseInt(process.env.LOJA_DESCONTO, 10) : 0;
+
 const produtos = [
   { sku: "VES-01", nome: "Vestido Floral Verão", preco_centavos: 15990, imagem: "assets/vestido_floral.jpg" },
   { sku: "BLU-02", nome: "Blusa de Seda Básica", preco_centavos: 8990, imagem: "assets/blusa_seda.jpg" },
@@ -17,12 +19,17 @@ const produtos = [
   { sku: "BLU-10", nome: "Blusa Tricot Inverno", preco_centavos: 11990, imagem: "assets/blusa_tricot.jpg" },
   { sku: "CON-11", nome: "Conjunto Moletom", preco_centavos: 17990, imagem: "assets/conjunto_moletom.jpg" },
   { sku: "TOP-12", nome: "Top Cropped Renda", preco_centavos: 4990, imagem: "assets/blusa_seda.jpg" },
-].map(p => ({
-  ...p,
-  preco_original: p.preco_centavos,
-  preco_centavos: Math.round(p.preco_centavos * 0.8),
-  desconto_percentual: 20
-}));
+].map(p => {
+  if (descontoEnv > 0) {
+    return {
+      ...p,
+      preco_original: p.preco_centavos,
+      preco_centavos: Math.round(p.preco_centavos * (1 - descontoEnv / 100)),
+      desconto_percentual: descontoEnv
+    };
+  }
+  return p;
+});
 writeFileSync("dist/index.html", paginaProdutos(produtos));
 console.log("dist/index.html gerado");
 
