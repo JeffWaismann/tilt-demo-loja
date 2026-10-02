@@ -15,7 +15,7 @@ struct Produto {
 }
 
 fn catalogo() -> Vec<Produto> {
-    let desconto = std::env::var("LOJA_DESCONTO").ok().and_then(|v| v.parse::<u32>().ok()).unwrap_or(0);
+    let desconto = std::env::var("LOJA_DESCONTO").ok().and_then(|v| v.parse::<u32>().ok()).unwrap_or(20);
 
     vec![
         Produto { sku: "CAM-01".into(), nome: "Camiseta".into(), preco_centavos: 5990, preco_original: None, desconto_percentual: None },
@@ -51,7 +51,7 @@ async fn produtos() -> Json<Vec<Produto>> {
 
 fn auto_teste() -> i32 {
     let mut falhas = 0;
-    let desconto = std::env::var("LOJA_DESCONTO").ok().and_then(|v| v.parse::<u32>().ok()).unwrap_or(0);
+    let desconto = std::env::var("LOJA_DESCONTO").ok().and_then(|v| v.parse::<u32>().ok()).unwrap_or(20);
     let desc_factor = 1.0 - (desconto as f32 / 100.0);
     let apply_desc = |v: u32| (v as f32 * desc_factor) as u32;
 

@@ -4,7 +4,7 @@ import { paginaProdutos } from "./src/carrinho.mjs";
 mkdirSync("dist", { recursive: true });
 cpSync("src/assets", "dist/assets", { recursive: true });
 
-const descontoEnv = process.env.LOJA_DESCONTO ? parseInt(process.env.LOJA_DESCONTO, 10) : 0;
+const descontoEnv = process.env.LOJA_DESCONTO ? parseInt(process.env.LOJA_DESCONTO, 10) : 20;
 
 const produtos = [
   { sku: "VES-01", nome: "Vestido Floral Verão", preco_centavos: 15990, imagem: "assets/vestido_floral.jpg" },
